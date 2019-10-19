@@ -1,6 +1,5 @@
 @import '~bootstrap/scss/_functions.scss';
-@import '~bootstrap/scss/_variables.scss';
-@import './custom/colors';
+@import 'custom/variables';
 @import '~bootstrap/scss/_mixins.scss';
 @import '~bootstrap/scss/_root.scss';
 @import '~bootstrap/scss/_reboot.scss';
@@ -40,3 +39,4 @@
 
 @import './custom/fonts';
 @import './custom/nav';
+@import './custom/buttons';
