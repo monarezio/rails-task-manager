@@ -13,3 +13,10 @@
  *= require_tree .
  *= require_self
  */
+
+@import '../../javascript/packs/libs/normalize/normalize';
+
+body {
+  background: url("background.svg") no-repeat top;
+  background-size: auto 100vh;
+}
