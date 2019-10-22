@@ -1,7 +1,7 @@
+@import '~bootstrap/scss/_functions.scss';
 @import '~bootstrap/scss/_variables.scss';
 
 /* change the primary theme color to red */
 $theme-colors: (
-        primary: #e74c3c,
-        light: $light
+        'primary': #e74c3c,
 );

@@ -8,14 +8,11 @@ require("turbolinks").start();
 require("@rails/activestorage").start();
 require("channels");
 
-// Libs
-import './libs/normalize/normalize.scss';
+import '@fortawesome/fontawesome-free/js/all';
+import './libs/custom_bootstrap';
 
-import './libs/bootstrap/bootstrap_custom';
-import './libs/bootstrap/bootstrap_custom.scss';
-
-import './libs/font-awesome/font-awesome';
-import './libs/font-awesome/font-awesome.scss';
+// SCSS
+import '../stylesheets/application';
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)

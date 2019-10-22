@@ -1,0 +1,17 @@
+@import '~normalize.css/normalize';
+@import './libs/bootstrap/custom_bootstrap';
+
+body {
+  background: url("../assets/images/background.svg") no-repeat top;
+  background-size: auto 100vh;
+}
+
+.full-height {
+  height: 100vh;
+}
+
+.big-icon {
+  font-size: 100px;
+  width: 150px;
+  height: 150px;
+}
