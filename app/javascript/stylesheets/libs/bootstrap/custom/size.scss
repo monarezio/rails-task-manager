@@ -1,0 +1,30 @@
+$sizes: 25 50 100 150 200 250 300 350 400 450 500;
+
+@each $size in $sizes {
+  .fixed-size-#{$size} {
+    width: #{$size}px;
+    height: #{$size}px;
+  }
+
+  .fixed-width-#{$size} {
+    width: #{$size}px;
+  }
+
+  .fixed-height-#{$size} {
+    height: #{$size}px;
+  }
+
+  .min-fixed-size-#{size} {
+    min-width: #{$size}px;
+    min-height: #{$size}px;
+  }
+
+  .min-fixed-width-#{$size} {
+    min-width: #{$size}px;
+  }
+
+  .min-fixed-height-#{$size} {
+    min-height: #{$size}px;
+  }
+}
+
