@@ -1,0 +1,2 @@
+module SignedOutUserHelper
+end

@@ -11,39 +11,13 @@
 
 <body>
 <div class="d-flex flex-column full-height">
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Task Manager</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-        </ul>
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <%= link_to('Login', new_user_session_path, :class => 'nav-link') %>
-          </li>
-          <li class="nav-item ml-2">
-            <%= link_to('Sign up', new_user_registration_path, :class => 'btn btn-outline-primary') %>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
+  <%= render partial: 'layouts/partials/header/header' %>
   <div class="container flex-grow-1">
     <% unless notice.nil? %>
-      <p class="notice alert-info"><%= notice %></p>
+      <p class="alert alert-info mt-3"><%= notice %></p>
     <% end %>
     <% unless alert.nil? %>
-      <p class="alert alert-danger"><%= alert %></p>
+      <p class="alert alert-danger mt-3"><%= alert %></p>
     <% end %>
 
     <%= yield %>

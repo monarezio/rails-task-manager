@@ -1,4 +1,4 @@
-.navbar {
+header .navbar {
   background-color: transparent;
 
   * {
@@ -10,7 +10,6 @@
   }
 
   .nav-link {
-    padding: 10px 20px;
     display: inline-block;
     min-width: 75px;
     text-align: center;
@@ -22,4 +21,10 @@
     border-radius: 10rem;
     box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
   }
+}
+
+
+.navbar-expand-lg .navbar-nav .nav-link {
+  padding-right: 1rem;
+  padding-left: 1rem;
 }

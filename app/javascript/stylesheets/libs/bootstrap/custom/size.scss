@@ -19,12 +19,25 @@ $sizes: 25 50 100 150 200 250 300 350 400 450 500;
     min-height: #{$size}px;
   }
 
+  .max-fixed-size-#{size} {
+    max-width: #{$size}px;
+    max-height: #{$size}px;
+  }
+
   .min-fixed-width-#{$size} {
     min-width: #{$size}px;
   }
 
   .min-fixed-height-#{$size} {
     min-height: #{$size}px;
+  }
+
+  .max-fixed-width-#{$size} {
+    max-width: #{$size}px;
+  }
+
+  .max-fixed-height-#{$size} {
+    max-height: #{$size}px;
   }
 }
 
