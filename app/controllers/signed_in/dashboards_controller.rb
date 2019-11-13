@@ -1,6 +1,6 @@
 module SignedIn
 
-    class DashboardController < SignedInUserController
+    class DashboardsController < SignedInUserController
 
         def index
 

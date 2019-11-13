@@ -1,6 +1,6 @@
-@import '~bootstrap/scss/_variables.scss';
+@import 'variables';
 
-form input, form label, form .form-control, form .alert {
+form input, form label, form .form-control, form .alert, .btn {
   font-size: 0.9rem;
 }
 
@@ -23,5 +23,9 @@ input[type=number]:focus,
   box-shadow: none;
   outline: none;
   border-color: $border-color;
-  border-bottom-color: #B00100;
+  border-bottom-color: $red;
+}
+
+.was-validated .form-control:valid, .form-control.is-valid {
+  border-color: $border-color;
 }
