@@ -1,0 +1,17 @@
+<%= simple_form_for(@task) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.association :category, :include_blank => 'Uncategorized', :collection => @categories %>
+    <%= f.association :tags, :collection => @tags %>
+    <%= f.input :title, required: true %>
+    <%= f.input :note, as: :text %>
+    <%= f.input :is_done %>
+    <%= f.input :deadline_at, as: :date_time_picker %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary' %>
+  </div>
+<% end %>

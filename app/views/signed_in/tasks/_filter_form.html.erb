@@ -1,0 +1,17 @@
+<%= simple_form_for :task_filter, url: tasks_path, :method => :get do |f| %>
+  <div class="form-inputs">
+    <%= f.input :category_id,
+                :include_blank => '‎‎‎‎‎‎‎‎ ',
+                selected: params[:task_filter][:category_id],
+                :collection => @categories %>
+    <%= f.input :tag_ids, input_html: {multiple: true},
+                selected: params[:task_filter][:tag_ids],
+                :collection => @tags %>
+    <%= f.input :search,
+                input_html: { value: params[:task_filter][:search] } %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, 'Filter tasks', :class => 'btn-primary' %>
+  </div>
+<% end %>

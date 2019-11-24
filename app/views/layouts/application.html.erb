@@ -13,13 +13,7 @@
 <div class="d-flex flex-column full-height">
   <%= render partial: 'layouts/partials/header/header' %>
   <div class="container flex-grow-1">
-    <% unless notice.nil? %>
-      <p class="alert alert-info mt-3"><%= notice %></p>
-    <% end %>
-    <% unless alert.nil? %>
-      <p class="alert alert-danger mt-3"><%= alert %></p>
-    <% end %>
-
+    <%= render partial: 'layouts/partials/messages', locals: {notice: notice, alert: alert} %>
     <%= yield %>
   </div>
 

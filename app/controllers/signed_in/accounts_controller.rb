@@ -3,6 +3,8 @@ module SignedIn
   class AccountsController < SignedInUserController
 
     def show
+      edit # TODO: Yikes
+      render 'signed_in/accounts/edit'
     end
 
     def update
@@ -12,9 +14,18 @@ module SignedIn
 
       current_user.email = params[:email]
       current_user.username = params[:username]
-      current_user.save
+      if current_user.save
+        respond_to do |format|
+          format.html { redirect_to edit_account_path, notice: 'Account was successfully updated.' }
+        end
+      else
+        errors = current_user.errors.map{|key, item| "There was a problem with field #{key}: #{item}"}
+        respond_to do |format|
+          format.html { redirect_to edit_account_path, alert: errors }
+        end
+      end
 
-      redirect_to edit_account_path
+
     end
 
     def edit

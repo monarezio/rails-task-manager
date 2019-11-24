@@ -1,0 +1,31 @@
+<h1 class="my-3">Categories</h1>
+
+<div class="p-3 bg-light rounded">
+
+  <% @categories.each do |category| %>
+    <span class="d-inline-block position-relative category-card">
+      <%= link_to settings_category_path(category.id), class: 'text-decoration-none text-dark' do %>
+        <span class="position-relative card d-inline-flex align-items-center justify-content-center fixed-size-150">
+          <span class="text-dark text-center">
+            <span class="d-block"><%= category.title %></span>
+            <span class="small">(<%= category.color %>)</span>
+            <!-- TODO: Pretty modal -->
+          </span>
+          <span class="colored-circle" style="background-color: <%= category.color %>"></span>
+        </span>
+      <% end %>
+
+      <%= link_to edit_settings_category_path(category), class: 'category-edit' do %>
+        <i class="fas fa-edit"></i>
+      <% end %>
+
+      <%= link_to settings_category_path(category.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'trash' do %>
+        <i class="fas fa-trash"></i>
+      <% end %>
+    </span>
+  <% end %>
+
+  <div class="my-2">
+    <%= link_to 'New Category', new_settings_category_path, class: 'btn btn-primary' %>
+  </div>
+</div>

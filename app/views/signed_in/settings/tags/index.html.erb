@@ -1,0 +1,31 @@
+<h1 class="my-3">Tags</h1>
+
+<div class="p-3 bg-light rounded">
+
+  <% @tags.each do |tag| %>
+    <span class="d-inline-block position-relative category-card">
+      <%= link_to settings_tag_path(tag.id), class: 'text-decoration-none text-dark' do %>
+        <span class="position-relative card d-inline-flex align-items-center justify-content-center fixed-size-150">
+          <span class="text-dark text-center">
+            <span class="d-block"><%= tag.title %></span>
+            <span class="small">(<%= tag.color %>)</span>
+            <!-- TODO: Pretty modal -->
+          </span>
+          <i class="colored-tag fas fa-tag" style="color: <%= tag.color %>"></i>
+        </span>
+      <% end %>
+
+      <%= link_to edit_settings_tag_path(tag), class: 'category-edit' do %>
+        <i class="fas fa-edit"></i>
+      <% end %>
+
+      <%= link_to settings_tag_path(tag.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'trash' do %>
+        <i class="fas fa-trash"></i>
+      <% end %>
+    </span>
+  <% end %>
+
+  <div class="my-2">
+    <%= link_to 'New Tag', new_settings_tag_path, class: 'btn btn-primary' %>
+  </div>
+</div>

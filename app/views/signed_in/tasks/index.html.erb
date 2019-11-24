@@ -1,0 +1,77 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tasks</h1>
+<div class="p-3 bg-light rounded">
+  <div>
+    <a href="#task-filter" class="h3 text-dark" data-toggle="collapse"><i class="fas fa-angle-right"></i></a>
+    <h2 class="d-inline">Filter</h2>
+  </div>
+  <div id="task-filter"  class="collapse show">
+    <div class="px-5 pb-2">
+      <%= render partial: 'filter_form' %>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="mt-2">
+    <% if @tasks.empty? %>
+      <div class="h3 text-center">
+        No tasks found 😞
+      </div>
+    <% else %>
+      <% if @tasks.first.category == nil %>
+        <div>
+          <a href="#list-0" class="h3 text-dark" data-toggle="collapse"><i class="fas fa-angle-right"></i></a>
+          <h3 class="d-inline">Uncategorized</h3>
+        </div>
+      <% end %>
+      <div id="list-0" class="collapse show list-group px-4">
+        <% current_category = nil %>
+        <% @tasks.each do |task| %>
+          <% if task.category != nil && current_category != task.category %>
+            </div>
+            <% current_category = task.category %>
+            <div>
+              <a href="#list-<%= current_category.id %>" class="h3 text-dark" data-toggle="collapse"><i class="fas fa-angle-right"></i></a>
+              <h3 class="d-inline"><%= current_category.title %></h3>
+            </div>
+            <div id="list-<%= current_category.id %>" class="collapse show list-group px-4">
+          <% end %>
+          <%= link_to task_path(task), class: 'list-group-item list-group-item-action' do %>
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1"><%= task.title %></h5>
+              <small>
+                <% if task.is_done %>
+                  <span class="text-success">Done</span>
+                <% elsif task.deadline_at != nil %>
+                  <% if task.days_left > 2 %>
+                    <%= task.days_left %> days left
+                  <% elsif task.days_left <= 2 && task.days_left > 0 %>
+                    <span class="text-warning"><%= task.hours_left %> hours left</span>
+                  <% else %>
+                    <span class="text-danger"><%= task.hours_left %> hours left</span>
+                  <% end %>
+                <% else %>
+                  No deadline
+                <% end %>
+              </small>
+            </div>
+            <small class="mb-1">
+              <% if task.note == nil || task.note.empty? %>
+                Task has no further note/description 😞.
+              <% else %>
+                <%= task.note %>
+              <% end %>
+            </small>
+          <% end %>
+
+        <% end %>
+        </div>
+      <% end %>
+      </div>
+  <div class="mt-5 d-flex justify-content-between align-items-baseline">
+    <%= link_to 'New Task', new_task_path, class: 'btn btn-primary' %>
+    <%= will_paginate @tasks, :previous_label => 'Back', :next_label => 'Next' %>
+  </div>
+</div>

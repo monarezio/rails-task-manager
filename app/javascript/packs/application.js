@@ -8,8 +8,18 @@ require("turbolinks").start();
 require("@rails/activestorage").start();
 require("channels");
 
+var $ = require("jquery");
+
+import 'jquery-datetimepicker/build/jquery.datetimepicker.full.min'
+import 'jquery-datetimepicker/build/jquery.datetimepicker.min.css'
+
+import 'select2/dist/js/select2.full.min'
+import 'select2/dist/css/select2.min.css'
+
 import '@fortawesome/fontawesome-free/js/all';
 import './libs/custom_bootstrap';
+import './libs/custom_datetimepicker'
+import './libs/custom_multi_select'
 
 // SCSS
 import '../stylesheets/application';

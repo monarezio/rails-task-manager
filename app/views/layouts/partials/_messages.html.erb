@@ -1,0 +1,18 @@
+<% unless notice.nil? %>
+  <% if notice.kind_of? String %>
+    <p class="alert alert-info mt-3"><%= notice %></p>
+  <% else %>
+    <% notice.each do |n| %>
+      <p class="alert alert-info mt-3"><%= n %></p>
+    <% end %>
+  <% end %>
+<% end %>
+<% unless alert.nil? %>
+  <% if alert.kind_of? String %>
+    <p class="alert alert-danger mt-3"><%= alert %></p>
+  <% else %>
+    <% alert.each do |a| %>
+      <p class="alert alert-danger mt-3"><%= a %></p>
+    <% end %>
+  <% end %>
+<% end %>

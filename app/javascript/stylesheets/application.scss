@@ -1,5 +1,6 @@
 @import '~normalize.css/normalize';
 @import './libs/bootstrap/custom_bootstrap';
+@import './libs/select2/select2';
 
 body {
   background: url("../assets/images/background.svg") no-repeat fixed center;
@@ -17,7 +18,7 @@ body {
 }
 
 .form {
-  max-width: 450px;
+  max-width: 600px;
   width: 100%;
   margin-bottom: 7rem;
   margin-top: 1rem;

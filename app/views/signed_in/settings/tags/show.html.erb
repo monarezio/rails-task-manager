@@ -1,0 +1,29 @@
+<h1 class="my-3 ml-2">
+  Tag detail
+</h1>
+
+<div class="p-3 bg-light shadow-sm rounded">
+  <h2>
+    <i class="fas fa-tag" style="color: <%= @tag.color %>"></i>
+    <%= @tag.title %>
+  </h2>
+  <div>
+    <div class="row border-bottom py-2">
+      <div class="col-6"><i class="fas fa-tint"></i> <span class="d-none d-sm-inline">Color:</span></div>
+      <div class="col-6 text-right"><%= @tag.color %></div>
+    </div>
+    <div class="row border-bottom py-2">
+      <div class="col-6"><i class="fas fa-calendar-plus"></i> <span class="d-none d-sm-inline">Date created:</span>
+      </div>
+      <div class="col-6 text-right"><%= @tag.created_at.strftime('%d/%m/%Y') %></div>
+    </div>
+    <div class="row border-bottom py-2">
+      <div class="col-6"><i class="fas fa-pencil-alt"></i> <span class="d-none d-sm-inline">Date modified:</span></div>
+      <div class="col-6 text-right"><%= @tag.updated_at.strftime('%d/%m/%Y') %></div>
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <%= link_to 'Edit', edit_settings_tag_path(@tag), class: 'btn btn-primary' %>
+  </div>
+</div>
