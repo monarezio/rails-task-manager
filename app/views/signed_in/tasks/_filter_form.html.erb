@@ -1,14 +1,22 @@
-<%= simple_form_for :task_filter, url: tasks_path, :method => :get do |f| %>
+<%= simple_form_for @task_filter, url: tasks_path, :method => :get do |f| %>
   <div class="form-inputs">
     <%= f.input :category_id,
                 :include_blank => '‎‎‎‎‎‎‎‎ ',
-                selected: params[:task_filter][:category_id],
-                :collection => @categories %>
+                selected: f.object.category_id,
+                :collection => [Category.new({:id => -1, :title => 'Uncategorized'})] + @categories.to_a %>
     <%= f.input :tag_ids, input_html: {multiple: true},
-                selected: params[:task_filter][:tag_ids],
+                selected: f.object.tag_ids,
                 :collection => @tags %>
     <%= f.input :search,
-                input_html: { value: params[:task_filter][:search] } %>
+                input_html: {value: f.object.search} %>
+    <%= f.input :is_done,
+                :as => :boolean,
+                label: 'Filter out finished tasks',
+                input_html: {checked: f.object.is_done === true || f.object.is_done == '1'} %>
+    <%= f.input :group_under_categories,
+                :as => :boolean,
+                label: 'Group under categorized',
+                input_html: {checked: f.object.group_under_categories === true || f.object.group_under_categories == '1'} %>
   </div>
 
   <div class="form-actions">

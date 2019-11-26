@@ -1,0 +1,12 @@
+.page-item.active .page-link {
+  background-color: $primary;
+  border-color: $primary;
+}
+
+.page-link {
+  color: $dark;
+}
+
+.page-link:hover {
+  color: darken($dark, 3%);
+}

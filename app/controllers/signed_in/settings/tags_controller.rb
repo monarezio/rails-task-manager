@@ -1,8 +1,13 @@
 module SignedIn
   module Settings
 
-    class TagsController < ApplicationController
-      before_action :set_tag, only: [:show, :edit, :update, :destroy]
+    class TagsController < SignedInUserController
+      before_action :set_record_name
+      before_action :set_tag, only: [:edit, :update, :destroy]
+      before_action :set_tag_with_tasks, only: [:show]
+
+      add_breadcrumb 'Settings', :settings_path
+      add_breadcrumb 'Tags', :settings_tags_path
 
       # GET /tags
       # GET /tags.json
@@ -13,15 +18,19 @@ module SignedIn
       # GET /tags/1
       # GET /tags/1.json
       def show
+        add_breadcrumb @tag.title
       end
 
       # GET /tags/new
       def new
+        add_breadcrumb 'New'
         @tag = Tag.new
       end
 
       # GET /tags/1/edit
       def edit
+        add_breadcrumb @tag.title, settings_tag_path(@tag)
+        add_breadcrumb 'Edit'
       end
 
       # POST /tags
@@ -60,14 +69,25 @@ module SignedIn
       end
 
       private
+
       # Use callbacks to share common setup or constraints between actions.
       def set_tag
-        @tag = Tag.find(params[:id])
+        @tag = current_user.tags.find(params[:id])
+      end
+
+      def set_tag_with_tasks
+        @tag = current_user.tags
+                   .includes(:tasks)
+                   .find(params[:id])
       end
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def tag_params
         params.require(:tag).permit(:title, :color).merge(:user_id => current_user.id)
+      end
+
+      def set_record_name
+        @record = 'Tag'
       end
     end
 

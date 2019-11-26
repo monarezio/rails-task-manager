@@ -1,6 +1,9 @@
 <h1 class="text-capitalize my-3"><%= @user.username %>'s settings</h1>
 
 <div class="p-3 bg-light rounded">
-  <%= link_to('Manage categories', settings_categories_path) %>
-  <%= link_to('Manage tags', settings_tags_path) %>
+  <div class="pr-5 d-flex justify-content-center align-items-center">
+    <%= link_to('Manage categories', settings_categories_path, class: 'btn btn-primary') %>
+    <span class="mx-2">or</span>
+    <%= link_to('Manage tags', settings_tags_path, class: 'btn btn-secondary') %>
+  </div>
 </div>

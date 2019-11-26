@@ -62,3 +62,6 @@ gem 'devise', '~> 4.7'
 gem "auto_strip_attributes", "~> 2.5"
 gem 'will_paginate', '~> 3.1', '>= 3.1.6'
 gem 'will_paginate-bootstrap4', '~> 0.2.2'
+gem "breadcrumbs_on_rails", '~> 3'
+
+gem 'bullet', '~> 6'

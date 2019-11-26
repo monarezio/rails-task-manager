@@ -1,0 +1,39 @@
+<div class="position-relative list-group-item">
+  <%= link_to task_path(task), class: 'list-group-item-link list-group-item-action' do %>
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1"><%= task.title %></h5>
+      <small class="mr-1">
+        <% if task.is_done %>
+          <span class="text-success">Done</span>
+        <% elsif task.deadline_at != nil %>
+          <% if task.days_left > 2 %>
+            <%= task.days_left %> days left
+          <% elsif task.days_left <= 2 && task.days_left > 0 %>
+            <span class="text-warning"><%= task.hours_left %> hours left</span>
+          <% else %>
+            <span class="text-danger"><%= task.hours_left %> hours left</span>
+          <% end %>
+        <% else %>
+          No deadline
+        <% end %>
+      </small>
+    </div>
+    <div class="d-flex justify-content-between">
+      <small class="mb-1">
+        <% if task.note == nil || task.note.empty? %>
+          Task has no further note/description 😞.
+        <% else %>
+          <%= task.note.truncate(40, seperator: ' ') %>
+        <% end %>
+      </small>
+      <% if show_category != nil && show_category %>
+        <small>
+          <%= task.category ? task.category.title : 'Uncategorized' %>
+        </small>
+      <% end %>
+    </div>
+  <% end %>
+  <%= link_to task_path(task.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'trash trash-task' do %>
+    <i class="fas fa-trash"></i>
+  <% end %>
+</div>

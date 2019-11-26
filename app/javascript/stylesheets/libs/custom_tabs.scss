@@ -1,0 +1,7 @@
+#done, #not-done {
+  display: none;
+}
+
+#done.active, #not-done.active {
+  display: block;
+}

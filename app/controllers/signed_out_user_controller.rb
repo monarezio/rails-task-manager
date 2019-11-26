@@ -5,7 +5,7 @@ class SignedOutUserController < ApplicationController
   
   def unauthenticate_user
     if current_user
-      redirect_to dashboard_url
+      redirect_to account_path
     end
   end
 end

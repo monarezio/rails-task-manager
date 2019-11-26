@@ -1,73 +1,103 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Tasks</h1>
+<h1 class="my-3">Tasks</h1>
 <div class="p-3 bg-light rounded">
   <div>
     <a href="#task-filter" class="h3 text-dark" data-toggle="collapse"><i class="fas fa-angle-right"></i></a>
     <h2 class="d-inline">Filter</h2>
   </div>
-  <div id="task-filter"  class="collapse show">
+  <div id="task-filter" class="collapse show">
     <div class="px-5 pb-2">
       <%= render partial: 'filter_form' %>
     </div>
   </div>
 
-  <hr>
-
   <div class="mt-2">
-    <% if @tasks.empty? %>
-      <div class="h3 text-center">
-        No tasks found 😞
-      </div>
+    <% if !@tasks.empty? && @is_done == '0' %>
+      <ul class="nav nav-tabs mb-3 mt-3" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="not-done-tab" data-toggle="tab" href="#not-done" role="tab" aria-controls="not-done" aria-selected="true">Not
+            finished tasks</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="done-tab" data-toggle="tab" href="#done" role="tab" aria-controls="done" aria-selected="false">Finished
+            tasks</a>
+        </li>
+      </ul>
     <% else %>
-      <% if @tasks.first.category == nil %>
-        <div>
-          <a href="#list-0" class="h3 text-dark" data-toggle="collapse"><i class="fas fa-angle-right"></i></a>
-          <h3 class="d-inline">Uncategorized</h3>
-        </div>
-      <% end %>
-      <div id="list-0" class="collapse show list-group px-4">
-        <% current_category = nil %>
-        <% @tasks.each do |task| %>
-          <% if task.category != nil && current_category != task.category %>
-            </div>
-            <% current_category = task.category %>
-            <div>
-              <a href="#list-<%= current_category.id %>" class="h3 text-dark" data-toggle="collapse"><i class="fas fa-angle-right"></i></a>
-              <h3 class="d-inline"><%= current_category.title %></h3>
-            </div>
-            <div id="list-<%= current_category.id %>" class="collapse show list-group px-4">
-          <% end %>
-          <%= link_to task_path(task), class: 'list-group-item list-group-item-action' do %>
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1"><%= task.title %></h5>
-              <small>
-                <% if task.is_done %>
-                  <span class="text-success">Done</span>
-                <% elsif task.deadline_at != nil %>
-                  <% if task.days_left > 2 %>
-                    <%= task.days_left %> days left
-                  <% elsif task.days_left <= 2 && task.days_left > 0 %>
-                    <span class="text-warning"><%= task.hours_left %> hours left</span>
-                  <% else %>
-                    <span class="text-danger"><%= task.hours_left %> hours left</span>
-                  <% end %>
-                <% else %>
-                  No deadline
-                <% end %>
-              </small>
-            </div>
-            <small class="mb-1">
-              <% if task.note == nil || task.note.empty? %>
-                Task has no further note/description 😞.
-              <% else %>
-                <%= task.note %>
-              <% end %>
-            </small>
-          <% end %>
+      <hr>
+    <% end %>
 
-        <% end %>
+    <div class="tab-content">
+      <% if @tasks.empty? %>
+        <div class="h3 text-center">
+          No tasks found 😞
         </div>
+      <% elsif @is_grouped === true || @is_grouped == '1' %>
+        <div id="not-done" class="active" role="tabpanel">
+          <% if @tasks.first.category == nil %>
+            <div>
+              <a href="#list-0" class="h3 text-dark" data-toggle="collapse"><i class="fas fa-angle-right"></i></a>
+              <h3 class="d-inline">Uncategorized</h3>
+            </div>
+          <% end %>
+          <div id="list-0" class="collapse show list-group px-4">
+            <% current_category = nil %>
+            <% @tasks.each do |task| %>
+              <% if task.is_done %>
+                <% @finished_tasks << task %>
+              <% else %>
+                <% if task.category != nil && current_category != task.category %>
+                  </div>
+                  <% current_category = task.category %>
+                  <div>
+                    <a href="#list-<%= current_category.id %>" class="h3 text-dark" data-toggle="collapse"><i class="fas fa-angle-right"></i></a>
+                    <h3 class="d-inline"><%= current_category.title %></h3>
+                  </div>
+                  <div id="list-<%= current_category.id %>" class="collapse show list-group px-4">
+                <% end %>
+                <%= render partial: 'layouts/partials/task', locals: {task: task, show_category: false} %>
+              <% end %>
+            <% end %>
+            </div>
+            </div>
+        <div id="done" role="tabpanel">
+          <% if @tasks.first.category == nil %>
+            <div>
+              <a href="#list-0" class="h3 text-dark" data-toggle="collapse"><i class="fas fa-angle-right"></i></a>
+              <h3 class="d-inline">Uncategorized</h3>
+            </div>
+          <% end %>
+          <div id="list-0" class="collapse show list-group px-4">
+            <% @finished_tasks.each do |task| %>
+              <% if task.category != nil && current_category != task.category %>
+                </div>
+                <% current_category = task.category %>
+                <div>
+                  <a href="#finished-list-<%= current_category.id %>" class="h3 text-dark" data-toggle="collapse"><i class="fas fa-angle-right"></i></a>
+                  <h3 class="d-inline"><%= current_category.title %></h3>
+                </div>
+                <div id="finished-list-<%= current_category.id %>" class="collapse show list-group px-4">
+              <% end %>
+              <%= render partial: 'layouts/partials/task', locals: {task: task, show_category: false} %>
+            <% end %>
+            </div>
+            </div>
+        </div>
+      <% else %>
+        <h3 class="d-inline">Tasks: </h3>
+        <div id="not-done" class="active" role="tabpanel">
+          <% @tasks.each do |task| %>
+            <% if task.is_done %>
+              <% @finished_tasks << task %>
+            <% else %>
+              <%= render partial: 'layouts/partials/task', locals: {task: task, show_category: true} %>
+            <% end %>
+          <% end %>
+        </div>
+        <div id="done" role="tabpanel">
+          <% @finished_tasks.each do |task| %>
+            <%= render partial: 'layouts/partials/task', locals: {task: task, show_category: true} %>
+          <% end %>
+        </div></div>
       <% end %>
       </div>
   <div class="mt-5 d-flex justify-content-between align-items-baseline">

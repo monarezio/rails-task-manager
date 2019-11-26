@@ -1,7 +1,7 @@
 class User < ApplicationRecord
-  has_many :categories
-  has_many :tags
-  has_many :tasks
+  has_many :categories, dependent: :destroy
+  has_many :tags, dependent: :destroy
+  has_many :tasks, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

@@ -12,6 +12,11 @@
 <body>
 <div class="d-flex flex-column full-height">
   <%= render partial: 'layouts/partials/header/header' %>
+  <div class="container mt-3">
+    <% if user_signed_in? %>
+      <%= render_breadcrumbs :separator => ' / ', builder: ::BootstrapBreadcrumbsBuilder %>
+    <% end %>
+  </div>
   <div class="container flex-grow-1">
     <%= render partial: 'layouts/partials/messages', locals: {notice: notice, alert: alert} %>
     <%= yield %>

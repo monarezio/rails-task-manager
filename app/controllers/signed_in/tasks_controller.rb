@@ -1,36 +1,38 @@
 module SignedIn
-  class TasksController < ApplicationController
-    before_action :set_task, only: [:show, :edit, :update, :destroy]
+  class TasksController < SignedInUserController
+    before_action :set_record_name
+    before_action :set_task, only: [:edit, :update, :destroy]
+    before_action :get_collections_for_selects, only: [:new, :create, :edit, :index]
+
+    add_breadcrumb "Tasks", :tasks_path
 
     # GET /tasks
     # GET /tasks.json
     def index
-      @categories = current_user.categories.to_a
-      empty_category = Category.new({:id => -1, :title => 'Uncategorized'})
-      @categories.unshift empty_category
-
-      @tags = current_user.tags
-
-      p 'PARAMS: '
-      p params
-
+      @task_filter = TaskFilter.new(filter_params)
+      @is_grouped = @task_filter.group_under_categories
+      @is_done = @task_filter.is_done
       @tasks = Task.for_user(current_user.id, filter_params)
+      @finished_tasks = []
     end
 
     # GET /tasks/1
     # GET /tasks/1.json
     def show
+      set_task_with_category_and_tags
+      add_breadcrumb @task.title
     end
 
     # GET /tasks/new
     def new
-      @categories = current_user.categories
-      @tags = current_user.tags
       @task = Task.new
+      add_breadcrumb 'New'
     end
 
     # GET /tasks/1/edit
     def edit
+      add_breadcrumb @task.title, task_url(@task)
+      add_breadcrumb 'Edit'
     end
 
     # POST /tasks
@@ -72,7 +74,19 @@ module SignedIn
 
     # Use callbacks to share common setup or constraints between actions.
     def set_task
-      @task = Task.find(params[:id])
+      @task = current_user.tasks.find(params[:id])
+    end
+
+    def set_task_with_category_and_tags
+      @task = current_user.tasks
+                  .includes(:category)
+                  .includes(:tags)
+                  .find(params[:id])
+    end
+
+    def get_collections_for_selects
+      @categories = current_user.categories
+      @tags = current_user.tags
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -87,9 +101,15 @@ module SignedIn
           :search => '',
           :tag_ids => [],
           :category_id => '',
-          :page => 1
-      }).permit(:search, {:tag_ids => []}, :category_id, :page)
-      .merge(:page => params[:page] ? params[:page] : 1)
+          :page => 1,
+          :is_done => true,
+          :group_under_categories => true
+      }).permit(:search, {:tag_ids => []}, :category_id, :page, :is_done, :group_under_categories)
+          .merge(:page => params[:page] ? params[:page] : 1)
+    end
+
+    def set_record_name
+      @record = 'Task'
     end
   end
 end

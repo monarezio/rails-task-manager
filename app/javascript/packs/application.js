@@ -20,6 +20,8 @@ import '@fortawesome/fontawesome-free/js/all';
 import './libs/custom_bootstrap';
 import './libs/custom_datetimepicker'
 import './libs/custom_multi_select'
+import './libs/custom_popover'
+import './libs/custom_tabs'
 
 // SCSS
 import '../stylesheets/application';

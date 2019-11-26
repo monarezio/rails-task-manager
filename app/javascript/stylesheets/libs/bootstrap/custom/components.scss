@@ -36,11 +36,17 @@
   right: 5px;
   opacity: 0.5;
   transition: opacity 0.25s;
+  z-index: 9999;
 }
 
 .trash:hover {
   color: $danger;
   opacity: 0.75;
+}
+
+.trash-task {
+  top: 12px;
+  right: 6px;
 }
 
 .category-edit {

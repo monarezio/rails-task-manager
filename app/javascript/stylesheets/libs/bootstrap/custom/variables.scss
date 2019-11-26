@@ -1,6 +1,8 @@
 @import '~bootstrap/scss/_functions.scss';
 @import '~bootstrap/scss/_variables.scss';
 
+$primary: #e74c3c;
+
 /* change the primary theme color to red */
 $theme-colors: map_merge(
                 $theme-colors,

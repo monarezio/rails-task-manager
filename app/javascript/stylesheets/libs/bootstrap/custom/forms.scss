@@ -1,6 +1,6 @@
 @import 'variables';
 
-form input, form label, form .form-control, form .alert, .btn {
+form input, form label, form .form-control, form .alert, .btn, p {
   font-size: 0.9rem;
 }
 
@@ -28,4 +28,8 @@ input[type=number]:focus,
 
 .was-validated .form-control:valid, .form-control.is-valid {
   border-color: $border-color;
+}
+
+.form-check-input.is-valid ~ .form-check-label {
+  color: $dark;
 }
