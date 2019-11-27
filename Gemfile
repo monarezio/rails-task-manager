@@ -65,3 +65,5 @@ gem 'will_paginate-bootstrap4', '~> 0.2.2'
 gem "breadcrumbs_on_rails", '~> 3'
 
 gem 'bullet', '~> 6'
+gem 'random-word', '~> 2.1', '>= 2.1.1'
+gem 'betterlorem'

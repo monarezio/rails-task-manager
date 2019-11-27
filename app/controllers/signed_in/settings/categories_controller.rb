@@ -72,8 +72,9 @@ module SignedIn
 
       def set_category_with_tasks
         @category = current_user.categories
-                   .includes(:tasks)
-                   .find(params[:id])
+                        .includes(:tasks)
+                        .order(:is_done, 'tasks.deadline_at is NULL', :deadline_at)
+                        .find(params[:id])
       end
 
       # Use callbacks to share common setup or constraints between actions.

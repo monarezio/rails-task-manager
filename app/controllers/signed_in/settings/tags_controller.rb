@@ -78,6 +78,7 @@ module SignedIn
       def set_tag_with_tasks
         @tag = current_user.tags
                    .includes(:tasks)
+                   .order(:is_done, 'tasks.deadline_at is NULL', :deadline_at)
                    .find(params[:id])
       end
 

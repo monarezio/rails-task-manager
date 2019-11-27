@@ -47,6 +47,18 @@ module SignedIn
       end
     end
 
+    def destroy
+      @user = current_user
+      if @user.valid_password? only_password_param[:password]
+        @user.destroy
+        redirect_to root_url, notice: 'Your account has been deleted.'
+      else
+        respond_to do |format|
+          format.html { redirect_to account_path, alert: 'Incorrect password.' }
+        end
+      end
+    end
+
     private
 
     def password_params_with_old_password
@@ -57,6 +69,11 @@ module SignedIn
     def password_params
       params.require(:user)
           .permit(:password, :password_confirmation)
+    end
+
+    def only_password_param
+      params.require(:user)
+          .permit(:password)
     end
 
     def user_params

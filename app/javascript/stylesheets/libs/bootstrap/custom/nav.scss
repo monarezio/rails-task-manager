@@ -15,11 +15,17 @@ header .navbar {
     text-align: center;
 
     transition: all 0.25s;
+    border-radius: 10rem;
   }
 
   .nav-link:hover {
-    border-radius: 10rem;
     box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-active {
+    background-color: $gray-200;
+    border-color: $gray-200;
+    color: $dark !important;
   }
 }
 

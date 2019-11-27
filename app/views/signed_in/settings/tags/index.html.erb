@@ -2,27 +2,39 @@
 
 <div class="p-3 bg-light rounded">
 
-  <% @tags.each do |tag| %>
-    <span class="d-inline-block position-relative category-card">
-      <%= link_to settings_tag_path(tag.id), class: 'text-decoration-none text-dark' do %>
-        <span class="position-relative card d-inline-flex align-items-center justify-content-center fixed-size-150">
-          <span class="text-dark text-center">
-            <span class="d-block"><%= tag.title %></span>
-            <span class="small">(<%= tag.color %>)</span>
-            <!-- TODO: Pretty modal -->
-          </span>
-          <i class="colored-tag fas fa-tag" style="color: <%= tag.color %>"></i>
+  <% if @tags.empty? %>
+    <h3 class="text-center">Tags are empty</h3>
+    <p class="text-center">How about
+      <%= link_to 'creating', new_settings_tag_path %>
+      one?</p>
+  <% else %>
+
+    <div class="d-flex flex-wrap justify-content-center">
+      <% @tags.each do |tag| %>
+        <span class="d-inline-block mr-1 position-relative category-card">
+          <%= link_to settings_tag_path(tag.id), class: 'text-decoration-none text-dark' do %>
+            <span class="position-relative card d-inline-flex align-items-center justify-content-center fixed-size-150">
+              <span class="text-dark text-center text-wrap w-100">
+                <span class="d-block"><%= tag.title %></span>
+                <span class="small">(<%= tag.color %>)</span>
+                <!-- TODO: Pretty modal -->
+              </span>
+              <span class="colored-badge badge badge-dark" style="background-color: <%= tag.color %>">
+                <%= tag.tag_associations_count ? tag.tag_associations_count : 0 %>
+              </span>
+            </span>
+          <% end %>
+
+          <%= link_to edit_settings_tag_path(tag), class: 'category-edit' do %>
+            <i class="fas fa-edit"></i>
+          <% end %>
+
+          <%= link_to settings_tag_path(tag.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'trash' do %>
+            <i class="fas fa-trash"></i>
+          <% end %>
         </span>
       <% end %>
-
-      <%= link_to edit_settings_tag_path(tag), class: 'category-edit' do %>
-        <i class="fas fa-edit"></i>
-      <% end %>
-
-      <%= link_to settings_tag_path(tag.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'trash' do %>
-        <i class="fas fa-trash"></i>
-      <% end %>
-    </span>
+    </div>
   <% end %>
 
   <div class="my-2">

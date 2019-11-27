@@ -7,8 +7,7 @@ require("@rails/ujs").start();
 require("turbolinks").start();
 require("@rails/activestorage").start();
 require("channels");
-
-var $ = require("jquery");
+require("jquery");
 
 import 'jquery-datetimepicker/build/jquery.datetimepicker.full.min'
 import 'jquery-datetimepicker/build/jquery.datetimepicker.min.css'
@@ -18,6 +17,9 @@ import 'select2/dist/css/select2.min.css'
 
 import '@fortawesome/fontawesome-free/js/all';
 import './libs/custom_bootstrap';
+
+// turbolinks fix inspired by:
+// https://stackoverflow.com/questions/41421496/turbolinks-load-event-not-working-on-with-page-refresh
 import './libs/custom_datetimepicker'
 import './libs/custom_multi_select'
 import './libs/custom_popover'

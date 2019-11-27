@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get 'home', to: 'signed_out/home#index'
 
   scope module: 'signed_in' do
-    resource :account, only: [:show, :update, :edit]
+    resource :account, only: [:show, :update, :edit, :destroy]
     patch '/account/password', to: 'accounts#password'
 
     resources :settings, only: [:index]

@@ -1,5 +1,12 @@
-$(document).on('ready turbolinks:load', () => {
-    $('[data-toggle="popover"]').popover();
+const ready = () => {
+    const html = $('html');
+    if (html.attr('data-turbolinks-preview') === '') {
+        console.log('Turbolinks load');
+        return;
+    }
+
+    const popoverButton = $('[data-toggle="popover"]');
+    popoverButton.popover();
 
     let isLocked = true;
     const lock = $('#unlock-category');
@@ -14,5 +21,10 @@ $(document).on('ready turbolinks:load', () => {
         isLocked = !isLocked;
         lock.children().toggle();
         deleteButton.children().toggle();
+
+        popoverButton.popover('hide')
     });
-});
+};
+
+$(document).ready(ready);
+$(document).on('turbolinks:load', ready);

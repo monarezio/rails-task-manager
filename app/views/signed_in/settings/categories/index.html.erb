@@ -2,27 +2,40 @@
 
 <div class="p-3 bg-light rounded">
 
-  <% @categories.each do |category| %>
-    <span class="d-inline-block position-relative category-card">
+  <% if @categories.empty? %>
+    <h3 class="text-center">Categories are empty 😕</h3>
+    <p class="text-center">How about
+      <%= link_to 'creating', new_settings_category_path %>
+      one?</p>
+  <% else %>
+    <div class="d-flex flex-wrap justify-content-center">
+    <% @categories.each do |category| %>
+    <span class="d-inline-block mr-1 position-relative category-card">
       <%= link_to settings_category_path(category.id), class: 'text-decoration-none text-dark' do %>
         <span class="position-relative card d-inline-flex align-items-center justify-content-center fixed-size-150">
-          <span class="text-dark text-center">
-            <span class="d-block"><%= category.title %></span>
+          <span class="text-dark text-center text-wrap w-100">
+            <span class="d-block">
+              <%= category.title %>
+            </span>
             <span class="small">(<%= category.color %>)</span>
-            <!-- TODO: Pretty modal -->
           </span>
-          <span class="colored-circle" style="background-color: <%= category.color %>"></span>
+          <span class="colored-badge badge badge-dark" style="background-color: <%= category.color %>">
+            <%= category.tasks_count ? category.tasks_count : 0 %>
+          </span>
         </span>
       <% end %>
 
       <%= link_to edit_settings_category_path(category), class: 'category-edit' do %>
-        <i class="fas fa-edit"></i>
-      <% end %>
+      <i class="fas fa-edit"></i>
+    <% end %>
 
       <%= link_to settings_category_path(category.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'trash' do %>
-        <i class="fas fa-trash"></i>
-      <% end %>
+      <i class="fas fa-trash"></i>
+    <% end %>
     </span>
+
+    <% end %>
+    </div>
   <% end %>
 
   <div class="my-2">

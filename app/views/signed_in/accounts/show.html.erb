@@ -1,6 +1,12 @@
 <h1 class="text-capitalize my-3"><%= @user.username %>'s account</h1>
 
 <div class="p-3 bg-white rounded">
+  <div class="text-right">
+    <a id="unlock-category" href="#" class="text-right text-dark">
+      <i class="fas fa-lock locked"></i>
+      <i class="fas fa-unlock unlocked"></i>
+    </a>
+  </div>
   <%= simple_form_for @user, url: account_path do |f| %>
     <%= f.error_notification %>
 
@@ -9,15 +15,51 @@
                   required: false,
                   autofocus: true,
                   class: 'form-control-plaintext',
-                  input_html: {readonly: true, value: @user.username }%>
+                  input_html: {readonly: true, value: @user.username} %>
       <%= f.input :email,
                   required: false,
                   class: 'form-control-plaintext',
-                  input_html: {readonly: true, value: @user.email}%>
+                  input_html: {readonly: true, value: @user.email} %>
     </div>
 
     <div class="form-actions d-flex justify-content-between">
       <%= link_to 'Edit', edit_account_path, :class => "btn btn-primary" %>
+
+      <div id="delete-buttons">
+        <span data-toggle="popover" data-content="This operation will delete your account, and with it all of your data">
+          <button class="btn btn-outline-secondary disabled" style="pointer-events: none;" type="button" disabled>Delete this account</button>
+        </span>
+        <a href="#" data-toggle="modal" data-target="#accountDeleteModal" class="btn btn-outline-secondary">Delete this
+          account
+        </a>
+      </div>
     </div>
   <% end %>
+</div>
+
+<div class="modal fade" id="accountDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title h5" id="exampleModalLabel">You are about to delete your account</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= simple_form_for @user, :url => account_path, method: :delete do |f| %>
+        <div class="modal-body">
+          <%= f.error_notification %>
+
+          <div class="form-inputs">
+            <%= f.input :password,
+                        input_html: {autocomplete: 'new-password'} %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+          <%= f.button :submit, "Delete", :class => "btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
