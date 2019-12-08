@@ -8,21 +8,23 @@
                         user_password PATCH  /users/password(.:format)                                                                devise/passwords#update
                                       PUT    /users/password(.:format)                                                                devise/passwords#update
                                       POST   /users/password(.:format)                                                                devise/passwords#create
-             cancel_user_registration GET    /users/cancel(.:format)                                                                  devise/registrations#cancel
-                new_user_registration GET    /users/sign_up(.:format)                                                                 devise/registrations#new
-               edit_user_registration GET    /users/edit(.:format)                                                                    devise/registrations#edit
-                    user_registration PATCH  /users(.:format)                                                                         devise/registrations#update
-                                      PUT    /users(.:format)                                                                         devise/registrations#update
-                                      DELETE /users(.:format)                                                                         devise/registrations#destroy
-                                      POST   /users(.:format)                                                                         devise/registrations#create
+             cancel_user_registration GET    /users/cancel(.:format)                                                                  users/registrations#cancel
+                new_user_registration GET    /users/sign_up(.:format)                                                                 users/registrations#new
+               edit_user_registration GET    /users/edit(.:format)                                                                    users/registrations#edit
+                    user_registration PATCH  /users(.:format)                                                                         users/registrations#update
+                                      PUT    /users(.:format)                                                                         users/registrations#update
+                                      DELETE /users(.:format)                                                                         users/registrations#destroy
+                                      POST   /users(.:format)                                                                         users/registrations#create
                                  root GET    /                                                                                        signed_out/home#index
                                  home GET    /home(.:format)                                                                          signed_out/home#index
-                            dashboard GET    /dashboard(.:format)                                                                     signed_in/dashboards#index
-                             settings GET    /settings(.:format)                                                                      signed_in/settings#index
                          edit_account GET    /account/edit(.:format)                                                                  signed_in/accounts#edit
                               account GET    /account(.:format)                                                                       signed_in/accounts#show
                                       PATCH  /account(.:format)                                                                       signed_in/accounts#update
                                       PUT    /account(.:format)                                                                       signed_in/accounts#update
+                                      DELETE /account(.:format)                                                                       signed_in/accounts#destroy
+                     account_password PATCH  /account/password(.:format)                                                              signed_in/accounts#password
+                             settings GET    /settings(.:format)                                                                      signed_in/settings#index
+               tasks_destroy_multiple DELETE /tasks/destroy_multiple(.:format)                                                        signed_in/tasks#destroy_multiple
                                 tasks GET    /tasks(.:format)                                                                         signed_in/tasks#index
                                       POST   /tasks(.:format)                                                                         signed_in/tasks#create
                              new_task GET    /tasks/new(.:format)                                                                     signed_in/tasks#new

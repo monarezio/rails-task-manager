@@ -70,6 +70,20 @@ module SignedIn
       end
     end
 
+    def destroy_multiple
+      if task_ids_params.empty?
+        respond_to do |format|
+          format.html { redirect_to tasks_url, alert: 'No tasks were selected.' }
+        end
+      else
+        Task.destroy_multiple current_user.id, task_ids_params
+
+        respond_to do |format|
+          format.html { redirect_to tasks_url, notice: 'Tasks were successfully destroyed.' }
+        end
+      end
+    end
+
     private
 
     # Use callbacks to share common setup or constraints between actions.
@@ -106,6 +120,10 @@ module SignedIn
           :group_under_categories => true
       }).permit(:search, {:tag_ids => []}, :category_id, :page, :is_done, :group_under_categories)
           .merge(:page => params[:page] ? params[:page] : 1)
+    end
+
+    def task_ids_params
+      params.fetch('_', {}).reject { |i| params['_'][i] == '0' }
     end
 
     def set_record_name

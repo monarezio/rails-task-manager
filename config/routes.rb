@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     patch '/account/password', to: 'accounts#password'
 
     resources :settings, only: [:index]
+
+    delete 'tasks/destroy_multiple', to:'tasks#destroy_multiple'
     resources :tasks
 
     namespace :settings do

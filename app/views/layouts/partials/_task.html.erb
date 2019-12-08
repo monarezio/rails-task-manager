@@ -1,5 +1,11 @@
 <div class="position-relative list-group-item">
-  <%= link_to task_path(task), class: 'list-group-item-link list-group-item-action' do %>
+  <% if defined? form %>
+    <label class="checkbox-container">
+      <%= form.input_field task.id, as: :boolean %>
+      <span class="checkmark"></span>
+  <% end %>
+  </label>
+  <%= link_to task_path(task), class: "#{defined?(form) ? 'pl-5 ' : ''} list-group-item-link list-group-item-action" do %>
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1"><%= task.title %></h5>
       <small class="mr-1">

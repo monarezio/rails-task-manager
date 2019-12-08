@@ -8,14 +8,15 @@ namespace :generate do
     puts "Setting username: #{username}"
     puts "Setting email: #{email}"
 
-    user = User.create({email: email, username: username, password: '123456'})
+    user = User.create!({email: email, username: username, password: '123456'})
     user.save!
 
     tags = []
     50.times do #Tags
       tag_title = "#{RandomWord.nouns.next}"
       tag_color = "##{SecureRandom.hex(3)}"
-      tags << user.tags.create({title: tag_title, color: tag_color})
+      tags << user.tags.create!({title: tag_title, color: tag_color})
+      print '.'
     end
 
     categories = []
@@ -23,7 +24,7 @@ namespace :generate do
       category_name = RandomWord.nouns.next.sub '_', ' '
       category_color = "##{SecureRandom.hex(3)}"
 
-      category = user.categories.create({title: category_name, color: category_color})
+      category = user.categories.create!({title: category_name, color: category_color})
 
       20.times do #Tasks
         task_name = "#{RandomWord.nouns.next.sub '_', ' '}"
@@ -33,7 +34,7 @@ namespace :generate do
                              BetterLorem.w(30, true, true)
                            end
 
-        task = user.tasks.create({
+        task = user.tasks.create!({
                                      title: task_name,
                                      note: task_description,
                                      category_id: rand(10) != 1 ? category.id : nil,
@@ -49,14 +50,16 @@ namespace :generate do
             task.tags << possible_tag
           end
         end
+        print '.'
       end
 
       categories << category
+      print '.'
     end
 
     user.save!
 
-    puts "User generated with password '123456'!"
+    puts "\nUser generated with password '123456'!"
   end
 
 end

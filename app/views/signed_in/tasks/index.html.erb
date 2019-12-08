@@ -31,6 +31,7 @@
         <hr class="d-lg-none">
       <% end %>
 
+      <%= simple_form_for :_, url: tasks_destroy_multiple_path, :method => :delete do |f| %>
       <div class="tab-content">
         <% if @tasks.empty? %>
           <div class="h3 text-center">
@@ -61,7 +62,7 @@
                     </div>
                     <div id="list-<%= current_category.id %>" class="collapse show list-group px-4">
                   <% end %>
-                  <%= render partial: 'layouts/partials/task', locals: {task: task, show_category: false} %>
+                  <%= render partial: 'layouts/partials/task', locals: {task: task, show_category: false, form: f} %>
                 <% end %>
               <% end %>
               </div>
@@ -94,7 +95,7 @@
                   </div>
                   <div id="finished-list-<%= current_category.id %>" class="collapse show list-group px-4">
                 <% end %>
-                <%= render partial: 'layouts/partials/task', locals: {task: task, show_category: false} %>
+                <%= render partial: 'layouts/partials/task', locals: {task: task, show_category: false, form: f} %>
               <% end %>
               </div>
               </div>
@@ -106,18 +107,20 @@
               <% if task.is_done %>
                 <% @finished_tasks << task %>
               <% else %>
-                <%= render partial: 'layouts/partials/task', locals: {task: task, show_category: true} %>
+                <%= render partial: 'layouts/partials/task', locals: {task: task, show_category: true, form: f} %>
               <% end %>
             <% end %>
           </div>
           <div id="done" role="tabpanel">
             <% @finished_tasks.each do |task| %>
-              <%= render partial: 'layouts/partials/task', locals: {task: task, show_category: true} %>
+              <%= render partial: 'layouts/partials/task', locals: {task: task, show_category: true, form: f} %>
             <% end %>
           </div>
           </div>
         <% end %>
         </div>
+      <%= f.button :submit, 'Delete selected tasks', :class => 'btn-primary bottom-right' %>
+    <% end %>
   <div class="mt-5 d-flex justify-content-between align-items-baseline">
     <%= link_to 'New Task', new_task_path, class: 'btn btn-primary' %>
     <%= will_paginate @tasks, :previous_label => 'Back', :next_label => 'Next' %>

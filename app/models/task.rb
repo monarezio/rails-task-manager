@@ -35,6 +35,10 @@ class Task < ApplicationRecord
     @hours_left
   end
 
+  def self.destroy_multiple(user_id, ids)
+    Task.all.where(:user_id => user_id, :id => ids.keys).destroy_all
+  end
+
   def self.for_user(user_id, task_filter = nil)
     query = Task.all
                 .includes(:category)
